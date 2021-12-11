@@ -1,7 +1,7 @@
-import spacy 
+#import spacy 
 import streamlit as st
 import re
-from spacy.tokens import token
+#from spacy.tokens import token
 
 from gensim.summarization import summarize
 
