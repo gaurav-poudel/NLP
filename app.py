@@ -8,31 +8,37 @@ from gensim.summarization import summarize
 import spacy 
 from textblob import TextBlob
 import matplotlib.pyplot as plt 
+import os
 
 from wordcloud import WordCloud, STOPWORDS
 import wordcloud
+#import pyttsx
+
+from gtts import gTTS
+
+#def text_analyzer(my_text):
+    #nlp = spacy.load('en_core_web_sm')
+    #docx = nlp(my_text)
+    #tokens =[token.text for token in docx]
+    #alldata = [(' "Tokens":{},\n "Lemma":{}'.format(token.text,token.lemma_)) for token in docx]
+    #return alldata
 
 
-def text_analyzer(my_text):
-    nlp = spacy.load('en_core_web_sm')
-    docx = nlp(my_text)
-    tokens =[token.text for token in docx]
-    alldata = [(' "Tokens":{},\n "Lemma":{}'.format(token.text,token.lemma_)) for token in docx]
-    return alldata
 
-
-
-def name_entity(my_text):
-    nlp = spacy.load('en_core_web_sm')
-    docx = nlp(my_text)
-    tokens =[token.text for token in docx]
+#def name_entity(my_text):
+    #nlp = spacy.load('en_core_web_sm')
+    #docx = nlp(my_text)
+    #tokens =[token.text for token in docx]
 
   
-    docx = nlp(my_text)
-    entities = [(entity.text,entity.label_)for entity in docx.ents]
-    allData = ['"Tokens":{},\n"Entities":{}'.format(tokens,entities)]
+    #docx = nlp(my_text)
+    #entities = [(entity.text,entity.label_)for entity in docx.ents]
+    #allData = ['"Tokens":{},\n"Entities":{}'.format(tokens,entities)]
 
-    return allData
+    #return allData
+
+
+news_summary = [ ]
 
 
 
@@ -67,6 +73,9 @@ def main():
         if st.button("Summarize The Artical"):
             #lean_text_to_summ = clean_text
             summary_result = summarize(artical)
+            news_summary.append(summary_result)
+
+            
             st.success(summary_result)
 
         if st.button("Word Cloud"):
@@ -95,6 +104,19 @@ def main():
             else:
                 st.markdown("Neutral Sentiment ::: 😐  ")
             st.success(result_sentiment)
+        if st.button("text to speech"):
+            #text1 = ("this is a text , trun it to speech")
+            mytext = "in progress , garo "
+            
+            language = 'en'
+            myobj = gTTS(text=mytext, lang=language, slow=False)
+        
+            my_text2 = myobj.save("welcome.mp3")
+            audio_file = open('welcome.mp3', 'rb')
+            audio_bytes = audio_file.read()
+            st.audio(audio_bytes, format="audio/wav", start_time=0)
+            #os.system("mpg321 welcome.mp3")
+            
             
 
             
